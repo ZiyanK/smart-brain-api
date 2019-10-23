@@ -8,14 +8,29 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const profile = require('./controllers/profile');
 const image = require('./controllers/image');
+const food = require('./controllers/food');
+const apparel = require('./controllers/apparel');
+const object = require('./controllers/object');
+
+// const db = knex({
+//     client: 'pg',
+//     connection: {
+//       connectionString : process.env.DATABASE_URL,
+//       ssl : true,
+//     }
+//   });
 
 const db = knex({
-    client: 'pg',
-    connection: {
-      connectionString : process.env.DATABASE_URL,
-      ssl : true,
-    }
-  });
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'postgres',
+    password : 'test',
+    database : 'postgres'
+  }
+});
+
+db.select('*').from('users');
 
 const app = express();
 app.use(bodyParser.json());
@@ -33,9 +48,20 @@ app.put('/image', (req, res) => { image.handleImage (req, res, db)})
 
 app.post('/imageurl', (req, res) => { image.handleApiCall (req, res)})
 
+app.put('/food', (req, res) => { food.handleImage (req, res, db)})
+
+app.post('/foodurl', (req, res) => { food.handleApiCall (req, res)})
+
+app.put('/apparel', (req, res) => { apparel.handleImage (req, res, db)})
+
+app.post('/apparelurl', (req, res) => { apparel.handleApiCall (req, res)})
+
+app.put('/object', (req, res) => { object.handleImage (req, res, db)})
+
+app.post('/objecturl', (req, res) => { object.handleApiCall (req, res)})
 
 app.listen(process.env.PORT || 3000, () => {
-     console.log(`app is running on port ${process.env.PORT}`);
+     console.log(`app is running on port 3000`);
 })
 
 /*
