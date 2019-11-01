@@ -25,12 +25,12 @@ const db = knex({
   connection: {
     host : '127.0.0.1',
     user : 'postgres',
-    password : 'test',
+    password : '',
     database : 'postgres'
   }
 });
 
-db.select('*').from('users');
+console.log(db.select('*').from('users'));
 
 const app = express();
 app.use(bodyParser.json());
@@ -60,7 +60,7 @@ app.put('/object', (req, res) => { object.handleImage (req, res, db)})
 
 app.post('/objecturl', (req, res) => { object.handleApiCall (req, res)})
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(3000, () => {
      console.log(`app is running on port 3000`);
 })
 
